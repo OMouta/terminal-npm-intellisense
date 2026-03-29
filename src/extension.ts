@@ -46,9 +46,9 @@ export async function getCompletions(
         return completions;
     }
 
-    const removeMatch = textBeforeCursor.match(/^(?:(?:npm|bun)\s*(?:uninstall|rm|r|un)|(?:yarn|pnpm)\s*remove)\s+(?:.*?\s+)*([^\s]*)$/);
-    if (removeMatch && typeof cwd === 'string') {
-        const prefix = removeMatch[1] || '';
+    const depCmdMatch = textBeforeCursor.match(/^(?:(?:npm|bun)\s*(?:uninstall|rm|r|un|update|up|view|v|info|show)|(?:yarn|pnpm)\s*(?:remove|rm|upgrade|up|info|view))\s+(?:.*?\s+)*([^\s]*)$/);
+    if (depCmdMatch && typeof cwd === 'string') {
+        const prefix = depCmdMatch[1] || '';
         const replacementStart = cursorPosition - prefix.length;
         const replacementRange: readonly [number, number] = [replacementStart, cursorPosition];
         return await getDependencyCompletions(cwd, prefix, replacementRange);
@@ -234,6 +234,15 @@ export function activate(context: vscode.ExtensionContext) {
     watcher.onDidDelete(clearCache);
     context.subscriptions.push(watcher);
 
+    const clearAllCachesCommand = vscode.commands.registerCommand('terminalNpmIntellisense.clearCache', () => {
+        scriptsCache.clear();
+        dependenciesCache.clear();
+        binCache.clear();
+        workspacePackagesCache = undefined;
+        vscode.window.showInformationMessage('Terminal NPM IntelliSense: Caches cleared.');
+    });
+    context.subscriptions.push(clearAllCachesCommand);
+
     const fetchWorkspacePackageNames = async (): Promise<string[]> => {
         if (workspacePackagesCache !== undefined) return workspacePackagesCache;
         workspacePackagesCache = [];
@@ -269,7 +278,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
             return getCompletions(textBeforeCursor, cursorPosition, cwd, scriptsCache, fetchWorkspacePackageNames);
         }
-    }, ' ', 'run', 'remove', 'uninstall', 'rm', 'r', 'un', 'npx', 'pnpx', 'bunx', 'exec', 'dlx');
+    }, ' ', 'run', 'remove', 'uninstall', 'rm', 'r', 'un', 'update', 'up', 'upgrade', 'view', 'v', 'info', 'show', 'npx', 'pnpx', 'bunx', 'exec', 'dlx');
 
     context.subscriptions.push(provider);
 }

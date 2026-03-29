@@ -15,7 +15,7 @@ suite('Terminal Completion Logic', () => {
         const completions = await getCompletions('npm run ', 8, testWorkspaceRoot, scriptsCacheMap);
         assert.strictEqual(completions.length, 2);
         assert.strictEqual(completions[0].label, 'build');
-        assert.strictEqual(completions[1].label, 'test');
+        assert.strictEqual(completions[1].label, '? test');
     });
 
     test('npm run filtered suggestions', async () => {

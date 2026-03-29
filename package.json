@@ -25,6 +25,13 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "terminalNpmIntellisense.clearCache",
+        "title": "Clear Caches",
+        "category": "Terminal NPM IntelliSense"
+      }
+    ],
     "configuration": {
       "title": "Terminal NPM IntelliSense",
       "properties": {

@@ -17,16 +17,16 @@ Provides rapid autocomplete suggestions for package scripts right when you type 
 
 ![Smart Script Autocompletion Showcase](./assets/npm_run_showcase.png)
 
-### 2. Dependency Uninstall & Removal Autocompletion
+### 2. Dependency Update, Info & Removal Autocompletion
 
 Can't remember the exact name of an installed package? We've got you.
 
-Get autocomplete suggestions for your installed packages when you run removal commands:
+Get autocomplete suggestions for your installed packages when you run commands like uninstall, update, or view:
 
-- `npm uninstall <package>` / `npm rm <package>`
-- `yarn remove <package>`
-- `pnpm remove <package>`
-- `bun rm <package>`
+- `npm uninstall <package>` / `npm rm <package>` / `npm update <package>` / `npm view <package>` / `npm info <package>`
+- `yarn remove <package>` / `yarn upgrade <package>` / `yarn info <package>`
+- `pnpm remove <package>` / `pnpm update <package>`
+- `bun rm <package>` / `bun update <package>`
 
 ![Dependency Uninstall Autocompletion Showcase](./assets/npm_uninstall_showcase.png)
 
@@ -59,6 +59,10 @@ Customize how the extension behaves via VS Code settings (`settings.json`):
 | ------- | ---- | ------- | ----------- |
 | `terminalNpmIntellisense.enabledManagers` | `Array` | `["npm", "yarn", "pnpm", "bun"]` | Toggle Autocomplete for specific package managers. |
 | `terminalNpmIntellisense.excludePatterns` | `Array` | `["**/node_modules/**", "**/dist/**", "**/build/**"]` | Glob patterns to ignore when deep-scanning monorepo workspace packages. |
+
+### Clear Cache
+
+A built-in command (`terminalNpmIntellisense.clearCache`) that allows you to manually clear internal autocomplete caches if paths or package configurations change externally. Look up "Clear Caches" in the Command Palette.
 
 ## Contributing
 
