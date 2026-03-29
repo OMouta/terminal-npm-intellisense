@@ -41,15 +41,26 @@ Quickly execute local packages from your `node_modules/.bin` directory. Support 
 
 ![Executable Binaries Autocompletion Showcase](./assets/npx_showcase.png)
 
-### 4. Monorepo Workspace Suggestions
+### 4. Monorepo Workspace Suggestions & Script Resolution
 
-Easily run scripts into targeted monorepo packages! When providing workspace filter flags, the extension suggests available scoped package names:
+Easily target specific monorepo packages! When providing workspace filter flags, the extension suggests available scoped package names:
 
 - `npm run dev --workspace <package-name>`
 - `yarn workspace <package-name>`
 - `pnpm --filter <package-name>`
 
+Even better, if you specify the workspace *before* the run command, the extension will instantly filter the available scripts to only show those inside the targeted package!
+
+- `npm --workspace=@my-org/web run <scripts-from-web-only>`
+- `yarn workspace @my-org/ui <scripts-from-ui-only>`
+
 ![Monorepo Workspace Suggestions Showcase](./assets/npm_run_workspace_showcase.png)
+
+### 5. Local `npm link` Auto-Discovery
+
+`npm link` requires you to perfectly remember the exact formal package name of the folder you want to link. Now, simply typing `npm link` or `yarn link` will auto-scan your neighboring directories and suggest the names of the local packages sitting right next to your project.
+
+![Local npm link Auto-Discovery Showcase](./assets/npm_link_showcase.png)
 
 ## Configuration Settings
 
